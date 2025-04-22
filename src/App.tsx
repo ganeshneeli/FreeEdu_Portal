@@ -10,6 +10,7 @@ import { Login } from './components/auth/login';
 import { Signup } from './components/auth/signup';
 import { BecomeTutor } from './components/tutor/become-tutor';
 import { About } from './components/about/about';
+import { AIChatbot } from './components/chatbot/ai-chatbot';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/become-tutor" element={<BecomeTutor />} />
           <Route path="/about" element={<About />} />
         </Routes>
+        <AIChatbot />
       </div>
     </Router>
   );

@@ -1,57 +1,60 @@
-# FreeEdu - Online Learning Platform
+# FreeEdu - Online Education Platform
 
-A modern online learning platform built with React, TypeScript, and Tailwind CSS.
+A modern online education platform built with React, TypeScript, and Tailwind CSS.
 
 ## Features
 
-- Course categories and listings
+- Interactive course catalog
 - Live mentoring sessions
-- Shopping cart functionality
+- AI-powered education assistant
 - User authentication
+- Course management
 - Responsive design
-- Beautiful animations
 
-## Deployment Instructions
+## Tech Stack
 
-### Deploying to Netlify
-
-1. Push your code to a GitHub repository
-2. Go to [Netlify](https://www.netlify.com/) and sign in
-3. Click "Add new site" > "Import an existing project"
-4. Connect to your GitHub repository
-5. Configure the build settings:
-   - Build command: `npm run build`
-   - Publish directory: `dist`
-6. Click "Deploy site"
-
-### Environment Variables
-
-Make sure to set up the following environment variables in your Netlify dashboard:
-
-```
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-VITE_STRIPE_PUBLIC_KEY=your_stripe_public_key
-```
-
-## Local Development
-
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-## Technologies Used
-
-- React
+- React 18
 - TypeScript
 - Tailwind CSS
 - Framer Motion
-- Supabase
-- Stripe
-- Three.js 
+- React Router
+- Vite
+
+## Getting Started
+
+1. Clone the repository:
+```bash
+git clone https://github.com/your-username/free-edu.git
+cd free-edu
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start the development server:
+```bash
+npm run dev
+```
+
+4. Build for production:
+```bash
+npm run build
+```
+
+## Deployment
+
+This project is deployed on Netlify. The deployment process is automated through GitHub integration.
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details. 

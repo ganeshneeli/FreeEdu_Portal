@@ -487,7 +487,7 @@ export function CourseList() {
           animate="visible"
           className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {courses.map((course) => (
+        {courses.map((course) => (
             <motion.div
               key={course.id}
               variants={itemVariants}
@@ -495,9 +495,9 @@ export function CourseList() {
               className="bg-white/10 backdrop-blur-lg rounded-xl shadow-lg overflow-hidden border border-white/20"
             >
               <div className="relative h-48 overflow-hidden">
-                <img
-                  src={course.image}
-                  alt={course.title}
+            <img
+              src={course.image}
+              alt={course.title}
                   className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
@@ -507,10 +507,10 @@ export function CourseList() {
                   </div>
                 )}
               </div>
-              <div className="p-6">
+            <div className="p-6">
                 <h3 className="text-xl font-semibold text-white mb-2">
-                  {course.title}
-                </h3>
+                {course.title}
+              </h3>
                 <div className="flex items-center space-x-4 mb-4">
                   <div className="flex items-center text-yellow-300">
                     <Star className="h-5 w-5 mr-1" />
@@ -525,24 +525,24 @@ export function CourseList() {
                     <span className="text-sm font-medium">{course.students}+ students</span>
                   </div>
                 </div>
-                <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between">
                   <span className="text-2xl font-bold text-white">
-                    ${course.price}
-                  </span>
-                  <Button 
+                  ${course.price}
+                </span>
+                <Button 
                     onClick={() => addItem({
                       ...course,
                       description: `${course.title} - ${course.duration} course with live sessions`
                     })}
-                    size="sm"
+                  size="sm"
                     className="bg-blue-500 hover:bg-blue-400 text-white font-medium"
-                  >
-                    Add to Cart
-                  </Button>
-                </div>
+                >
+                  Add to Cart
+                </Button>
               </div>
+            </div>
             </motion.div>
-          ))}
+        ))}
         </motion.div>
       </div>
     </div>
