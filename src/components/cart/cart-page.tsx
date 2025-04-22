@@ -1,110 +1,70 @@
-import { useCartStore } from '@/store/cart';
-import { Button } from '@/components/ui/button';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useCart } from '../../store/cart';
+import { X } from 'lucide-react';
 
 export function CartPage() {
-  const { items, removeItem, clearCart, processPayment } = useCartStore();
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate();
-
-  const total = items.reduce((sum, item) => sum + item.price, 0);
-
-  const handlePayment = async () => {
-    try {
-      setIsProcessing(true);
-      setError(null);
-      await processPayment();
-      // If payment is successful, clear the cart and redirect
-      clearCart();
-      navigate('/success');
-    } catch (err) {
-      console.error('Payment error:', err);
-      setError(err instanceof Error ? err.message : 'Payment failed. Please try again.');
-    } finally {
-      setIsProcessing(false);
-    }
-  };
-
-  if (items.length === 0) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold mb-4">Your Cart</h1>
-        <p className="text-gray-600">Your cart is empty</p>
-        <Button 
-          onClick={() => navigate('/courses')}
-          className="mt-4"
-        >
-          Browse Courses
-        </Button>
-      </div>
-    );
-  }
+  const { items, removeItem, updateQuantity, getTotal } = useCart();
+  const total = getTotal();
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6">Your Cart</h1>
+    <div className="max-w-4xl mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-6">Shopping Cart</h1>
       
-      {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-          {error}
-        </div>
-      )}
-
-      <div className="space-y-4">
-        {items.map((item) => (
-          <div 
-            key={item.id} 
-            className="flex items-center justify-between p-4 border rounded-lg"
-          >
-            <div className="flex items-center space-x-4">
-              {item.image && (
-                <img 
-                  src={item.image} 
-                  alt={item.title} 
-                  className="w-20 h-20 object-cover rounded"
+      {items.length === 0 ? (
+        <p className="text-gray-400">Your cart is empty</p>
+      ) : (
+        <div className="space-y-4">
+          {items.map((item) => (
+            <div
+              key={item.id}
+              className="flex items-center justify-between p-4 bg-gray-800 rounded-lg"
+            >
+              <div className="flex items-center space-x-4">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-16 h-16 object-cover rounded"
                 />
-              )}
-              <div>
-                <h3 className="font-semibold">{item.title}</h3>
-                <p className="text-gray-600">${item.price.toFixed(2)}</p>
+                <div>
+                  <h3 className="font-medium">{item.title}</h3>
+                  <p className="text-gray-400">${item.price.toFixed(2)}</p>
+                </div>
+              </div>
+              
+              <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
+                    className="px-2 py-1 bg-gray-700 rounded"
+                  >
+                    -
+                  </button>
+                  <span>{item.quantity}</span>
+                  <button
+                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                    className="px-2 py-1 bg-gray-700 rounded"
+                  >
+                    +
+                  </button>
+                </div>
+                
+                <button
+                  onClick={() => removeItem(item.id)}
+                  className="p-2 text-gray-400 hover:text-red-500"
+                >
+                  <X size={20} />
+                </button>
               </div>
             </div>
-            <Button
-              variant="outline"
-              onClick={() => removeItem(item.id)}
-              className="text-red-500 hover:text-red-700"
-            >
-              Remove
-            </Button>
+          ))}
+          
+          <div className="flex justify-between items-center mt-6 p-4 bg-gray-800 rounded-lg">
+            <span className="text-xl font-bold">Total: ${total.toFixed(2)}</span>
+            <button className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+              Checkout
+            </button>
           </div>
-        ))}
-      </div>
-
-      <div className="mt-6 p-4 border-t">
-        <div className="flex justify-between items-center mb-4">
-          <span className="text-lg font-semibold">Total:</span>
-          <span className="text-xl font-bold">${total.toFixed(2)}</span>
         </div>
-
-        <div className="flex space-x-4">
-          <Button
-            onClick={handlePayment}
-            disabled={isProcessing}
-            className="flex-1"
-          >
-            {isProcessing ? 'Processing...' : 'Proceed to Payment'}
-          </Button>
-          <Button
-            variant="outline"
-            onClick={clearCart}
-            className="flex-1"
-          >
-            Clear Cart
-          </Button>
-        </div>
-      </div>
+      )}
     </div>
   );
 } 
